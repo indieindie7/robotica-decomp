@@ -13,17 +13,17 @@
 0x06018496 func list_BuildFromTable hand counts entries, allocates nodes (0x2c each), links and fills from 7-word descriptor table
 0x06018606 func list_FreeAll hand frees every node buffer in list then frees the list block
 0x0601864e func list_FindFreeNode hand scans list for first node with bit 1 clear, returns its flags pointer
-0x060186a8 func vdp2_InitDisplaySetup hand provisional series of SGL-style screen, scroll and color setup calls
+0x060186a8 func vdp2_InitDisplaySetup hand series of SGL-style screen, scroll and color setup calls
 0x06018794 func sys_InitHardware hand sets register bits, runs display setup, then several init calls and final configure
-0x060187e6 func main_StateMachine hand provisional init then endless state loop dispatching on state 0..5
+0x060187e6 func main_StateMachine hand init then endless state loop dispatching on state 0..5
 0x06018888 func menu_SelectFromList hand cycles selection with pad left/right, draws item string, returns on confirm button
 0x060189c0 func game_GetGlobalA hand returns a global 32-bit value
 0x060189cc func game_GetGlobalB hand returns a global 32-bit value
 0x060189d8 func movie_PlayOpening hand plays string OPENING.CPK, polls until done or start button pressed
 0x06018a3e func movie_PlayByIndex hand plays CPK named by table entry index, polls until done or button
 0x06018ab4 func movie_PlayEnding hand plays ENDING.CPK and polls until finished
-0x06018af8 func title_ShowLogoScreen hand provisional sets up VDP2 scroll and palette from tables, waits timeout or button
-0x06018d9a func stage_ShowIntro hand provisional per-stage intro: table of 0x14 byte records, plays movie, sets music and screen
+0x06018af8 func title_ShowLogoScreen hand sets up VDP2 scroll and palette from tables, waits timeout or button
+0x06018d9a func stage_ShowIntro hand per-stage intro: table of 0x14 byte records, plays movie, sets music and screen
 0x06018f28 func game_ResetState hand zeroes two globals then calls two init routines
 0x06018f78 func movie_PlayOver hand plays OVER.CPK game-over movie and polls until finished
 0x06018fc4 func game_MainLoop hand title, opening, stage loop up to 0x1e stages, game over, ending
@@ -41,7 +41,7 @@
 0x0601949e func stub_0601949e hand empty function that only returns
 0x060194b0 func light_SetFourLightVectors hand four calls with mask 4,8,0x10,0x20 and xyz triple each
 0x06019554 func camera_CopyPositionAngles hand copies position and angle fields from player object to globals
-0x060195b8 func vdp1_SetupWindowClip hand provisional sets user clipping and system clip, calls sprite setup
+0x060195b8 func vdp1_SetupWindowClip hand sets user clipping and system clip, calls sprite setup
 0x0601961c func gfx_RenderPassThree hand calls three render stage routines in sequence
 0x06019674 func stub_06019674 hand empty function that only returns
 0x06019684 func stub_06019684 hand empty function that only returns
@@ -82,7 +82,7 @@
 0x0601ac90 func gfx_ChainedCalls hand calls routine on global then chains results through two more calls
 0x0601acd0 func stub_0601acd0 hand empty function that only returns
 0x0601acd4 func gfx_LoadPalette4_20 hand calls loader with args 4,0,0x20 and global pointer
-0x0601acea func vdp2_InitFontLayer hand provisional allocates two buffers, clears tables, sets color mode and scroll
+0x0601acea func vdp2_InitFontLayer hand allocates two buffers, clears tables, sets color mode and scroll
 0x0601adec func gfx_LoadTable20_10 hand calls loader with 4,0x20,0x10 and pointer from table by index
 0x0601ae18 func gfx_LoadTable10_10 hand calls loader with 4,0x10,0x10 and pointer from table by index
 0x0601ae50 func gfx_LoadTable50_10 hand calls loader with 4,0x50,0x10 and pointer from table by index
@@ -94,14 +94,14 @@
 0x0601b030 func cd_OpenFileByName hand converts file name to id and opens file
 0x0601b064 func cd_CallWrapper hand thin wrapper forwarding argument to a CD routine
 0x0601b08c func cd_SetHandlerA hand calls setup with 0xc,0x18 and registers callback
-0x0601b0aa func movie_OpenCpkFile hand provisional opens stream for named CPK file, sets up play params, starts
+0x0601b0aa func movie_OpenCpkFile hand opens stream for named CPK file, sets up play params, starts
 0x0601b154 func movie_StopAndClose hand stops stream handle then calls cleanup with argument
 0x0601b198 func cd_SetHandlerB hand calls setup then registers callback
 0x0601b1cc func mem_FillLong hand fills count 32-bit words with value, backwards
-0x0601b1fc func movie_InitDisplay hand provisional sets VDP2 screen mode, color ram and scroll for CPK movie playback
-0x0601b3b0 func movie_StartPlayback hand provisional opens movie, sets decoder buffers and screen offset, starts stream
+0x0601b1fc func movie_InitDisplay hand sets VDP2 screen mode, color ram and scroll for CPK movie playback
+0x0601b3b0 func movie_StartPlayback hand opens movie, sets decoder buffers and screen offset, starts stream
 0x0601b5dc func movie_CopyFrameToVram hand SCU DMA copies frame lines to VDP2 VRAM in two halves, waits on completion
-0x0601b6f0 func movie_Stop hand provisional stops stream, releases buffers, clears active flag
+0x0601b6f0 func movie_Stop hand stops stream, releases buffers, clears active flag
 0x0601b726 func movie_Poll hand per-frame poll: copies new frame, returns 1 when stream at end state
 0x0601b7c2 func movie_Cleanup hand clears screen, masks flags, restores display, then calls stop
 0x0601b82c func sound_LoadDriver hand loads SNDDRV4.BIN and SNDMAP.BIN, stores addresses and sizes, starts driver
@@ -110,12 +110,12 @@
 0x0601b958 func sys_WaitFrames hand calls frame wait routine count times
 0x0601b988 func sound_ResetChannels hand zeroes four channel volumes, waits 60 frames, then restarts at 0x7f
 0x0601ba28 func vdp2_CopyTileMap hand copies width x height 16-bit tile map into 64-wide plane adding offset
-0x0601baca func vdp2_InitScrollPlanes hand provisional builds stack config structs for NBG0-3 and RBG0 scroll and priority
+0x0601baca func vdp2_InitScrollPlanes hand builds stack config structs for NBG0-3 and RBG0 scroll and priority
 0x0601bdbc func stub_0601bdbc hand empty function that only returns
 0x0601bdc0 func vdp2_LoadFontTiles hand sets mode then copies font tiles into VRAM
 0x0601bde8 func vdp2_LoadBackgroundMap hand copies 0x28 x 0x1c tile map using offset
 0x0601be24 func vdp2_ClearPalettesTables hand zeroes a table and a 16-entry table of halfwords
-0x0601be98 func vdp2_InitScrollPlanes_2 hand provisional second variant building NBG0-3 and RBG0 config structs, then clears tables
+0x0601be98 func vdp2_InitScrollPlanes_2 hand second variant building NBG0-3 and RBG0 config structs, then clears tables
 0x0601c19c func vdp2_SetupAndRun hand calls setup with constant then follow-up routine
 0x0601c1ba func screen_DrawConnectingText hand prints PLEASE WAIT, NOW CONNECTING SERVER, WALDOW SYSTEM2 at rows 12,14,16
 0x0601c1e6 func screen_DrawConnectingWrapper hand wrapper calling the connecting text routine
@@ -138,295 +138,295 @@
 0x0601d008 func hud_DrawLargeCounterByPlayer hand reads value of player record by index, draws as large digits
 0x0601d052 func hud_DrawLargeCounterByIndex hand reads halfword from table by index, draws as large digits
 0x0601d09c func hud_DrawBlock7x2 hand copies 7x2 tile block to plane at fixed offset
-0x0601d0dc func hud_DrawPanelBlock0 hand provisional: copies 0x28-wide tile block via FUN_0601c864 to VDP2 layer with fixed offsets
-0x0601d130 func hud_DrawSlotIcon hand provisional: copies icon tiles for slot index via FUN_0601ca66 using per-slot table
-0x0601d1c0 func hud_DrawSlotCount hand provisional: draws slot counter number via FUN_0601ca66 from player slot table
-0x0601d20a func hud_DrawSlotStatus hand provisional: slot zero calls FUN_0601d09c else draws count, block and icon
-0x0601d24c func hud_DrawWeaponSlot hand provisional: draws selected weapon slot tiles, ammo and status, slot at player+0x48
-0x0601d318 func hud_DrawNumberTiles hand provisional: copies 2x2 digit tile block at row offset via FUN_0601c864
-0x0601d372 func vdp2_ClearTileBuffer hand provisional: zeroes DAT_0601d40a halfwords at tile buffer
-0x0601d3b8 func hud_DrawEnergyBars hand provisional: draws energy and status digits, then calls FUN_0601cb0e with index
-0x0601d4a8 func hud_DrawMessageBox_2 hand provisional: zero clears buffer else copies 0x15x3 message tile block
-0x0601d504 func hud_DrawTextRow9x2 hand provisional: copies 9x2 tile block from layer 0x12 via FUN_0601c864
-0x0601d544 func hud_DrawTextRow16x2 hand provisional: copies 0x16x2 tile block from layer 0x12 via FUN_0601c864
-0x0601d598 func hud_DrawTextRow19x4 hand provisional: copies 0x19x4 tile block from layer 0x12 via FUN_0601c864
-0x0601d5e8 func hud_DrawStatusHeader hand provisional: draws header tiles plus two digit blocks from layer 0x12 getters
-0x0601d6d0 func hud_DrawFullPanel hand provisional: sequence of many tile block copies building whole HUD panel, ends FUN_0601cd6c
-0x0601da22 func vdp2_FillSequentialTiles hand provisional: fills 10x8 tile map with incrementing character numbers at 0x40 stride
-0x0601dab6 func vdp2_CopyTileMap10x8 hand provisional: copies 10x8 tile values plus base offset from source into map
-0x0601db4a func vdp2_FillTileRows3x10 hand provisional: fills 3 rows of 10 tiles with constant value
-0x0601dbb4 func map_TileToColorIndex hand provisional: maps automap tile type to color nibble 8, 10, 12 or 14
-0x0601dc34 func automap_ClearBuffers hand provisional: zeroes 8 words and DAT_0601dce6 words of automap buffer
-0x0601dcac func automap_BuildPixelBuffer hand provisional: packs map tile colors 8 per word into automap bitmap via FUN_0601dbb4
-0x0601dda0 func automap_PlotPixel hand provisional: bounds checks x<0x50,y<0x40 and writes 4bit color into automap bitmap
-0x0601de8c func gfs_LoadAutomapTiles hand provisional: loads entry param+10 from file table to buffer, copies tiles via DAT callbacks
-0x0601df14 func gfs_LoadHudTiles hand provisional: loads entry param+0xe from file table, then copies 0xc x 0xe tile block
-0x0601df82 func vdp2_LoadBackgroundMap_2 hand provisional: negative clears 40x30 map else loads file entry param+3 and copies map tiles
-0x0601e0c0 func hud_InitScreen hand provisional: clears buffers, draws header, panel, weapon slot, automap, loads tiles, sets SR mask
-0x0601e190 func gfs_LoadFivePalettes hand provisional: copies five data blocks from file table entry to destination buffers
+0x0601d0dc func hud_DrawPanelBlock0 hand copies 0x28-wide tile block via FUN_0601c864 to VDP2 layer with fixed offsets
+0x0601d130 func hud_DrawSlotIcon hand copies icon tiles for slot index via FUN_0601ca66 using per-slot table
+0x0601d1c0 func hud_DrawSlotCount hand draws slot counter number via FUN_0601ca66 from player slot table
+0x0601d20a func hud_DrawSlotStatus hand slot zero calls FUN_0601d09c else draws count, block and icon
+0x0601d24c func hud_DrawWeaponSlot hand draws selected weapon slot tiles, ammo and status, slot at player+0x48
+0x0601d318 func hud_DrawNumberTiles hand copies 2x2 digit tile block at row offset via FUN_0601c864
+0x0601d372 func vdp2_ClearTileBuffer hand zeroes DAT_0601d40a halfwords at tile buffer
+0x0601d3b8 func hud_DrawEnergyBars hand draws energy and status digits, then calls FUN_0601cb0e with index
+0x0601d4a8 func hud_DrawMessageBox_2 hand zero clears buffer else copies 0x15x3 message tile block
+0x0601d504 func hud_DrawTextRow9x2 hand copies 9x2 tile block from layer 0x12 via FUN_0601c864
+0x0601d544 func hud_DrawTextRow16x2 hand copies 0x16x2 tile block from layer 0x12 via FUN_0601c864
+0x0601d598 func hud_DrawTextRow19x4 hand copies 0x19x4 tile block from layer 0x12 via FUN_0601c864
+0x0601d5e8 func hud_DrawStatusHeader hand draws header tiles plus two digit blocks from layer 0x12 getters
+0x0601d6d0 func hud_DrawFullPanel hand sequence of many tile block copies building whole HUD panel, ends FUN_0601cd6c
+0x0601da22 func vdp2_FillSequentialTiles hand fills 10x8 tile map with incrementing character numbers at 0x40 stride
+0x0601dab6 func vdp2_CopyTileMap10x8 hand copies 10x8 tile values plus base offset from source into map
+0x0601db4a func vdp2_FillTileRows3x10 hand fills 3 rows of 10 tiles with constant value
+0x0601dbb4 func map_TileToColorIndex hand maps automap tile type to color nibble 8, 10, 12 or 14
+0x0601dc34 func automap_ClearBuffers hand zeroes 8 words and DAT_0601dce6 words of automap buffer
+0x0601dcac func automap_BuildPixelBuffer hand packs map tile colors 8 per word into automap bitmap via FUN_0601dbb4
+0x0601dda0 func automap_PlotPixel hand bounds checks x<0x50,y<0x40 and writes 4bit color into automap bitmap
+0x0601de8c func gfs_LoadTileRectFromEntry hand loads entry param+10 from file table to buffer, copies tiles via DAT callbacks (was gfs_LoadAutomapTiles)
+0x0601df14 func gfs_LoadHudTiles hand loads entry param+0xe from file table, then copies 0xc x 0xe tile block
+0x0601df82 func vdp2_LoadBackgroundMap_2 hand negative clears 40x30 map else loads file entry param+3 and copies map tiles
+0x0601e0c0 func hud_InitScreen hand clears buffers, draws header, panel, weapon slot, automap, loads tiles, sets SR mask
+0x0601e190 func gfs_LoadFivePalettes hand copies five data blocks from file table entry to destination buffers
 0x0601e228 func stub_0601e228 hand empty return stub
 0x0601e238 func stub_0601e238 hand empty return stub
 0x0601e248 func stub_0601e248 hand empty return stub
 0x0601e258 func stub_0601e258 hand empty return stub
 0x0601e264 func game_SetPauseFlag hand sets global flag to 1
-0x0601e26e func pad_HandleDebugButtons hand provisional: pad bit tests when gated; resets slots, selects weapon, sets flags on button combos
-0x0601e490 func vdp1_DrawHudSprite hand provisional: builds 4 corner coordinates around player screen pos, submits sprite via FUN_0601e558
-0x0601e55c func vdp1_DrawRadarFrame hand provisional: builds several quads from player angle sin/cos offsets, submits via VDP1 command calls
+0x0601e26e func pad_HandleDebugButtons hand pad bit tests when gated; resets slots, selects weapon, sets flags on button combos
+0x0601e490 func vdp1_DrawHudSprite hand builds 4 corner coordinates around player screen pos, submits sprite via FUN_0601e558
+0x0601e55c func vdp1_DrawRadarFrame hand builds several quads from player angle sin/cos offsets, submits via VDP1 command calls
 0x0601e870 func player_UpdateHeading hand provisional: stores clamped value from FUN_0601e900 call into global, copies player+0x2c
-0x0601e91c func vdp1_DrawBarSprite hand provisional: builds quad from x,y,width and submits sprite via FUN_0601e998
-0x0601e99c func player_ReadMoveInput hand provisional: pad direction switch sets forward and strafe deltas via sin/cos of heading, writes player+0x24
-0x0601ed6e func sound_PlayWalkTransition hand provisional: on movement mode change 2/3 triggers sound command with args 3,x,6/7,1
-0x0601edf6 func player_UpdateMovement hand provisional: reads pad, sets walk state, applies move vector, scales speeds, calls FUN_0601ed6e
-0x0601f024 func player_UpdateHeightFromAngle hand provisional: computes player+0x2c from trig of player+0x70 plus offset
-0x0601f062 func player_ApplyPendingVelocity hand provisional: moves player+0x74/0x7c to +0xc/+0x14 and clears them
-0x0601f0c8 func player_IntegratePosition hand provisional: updates angle +0x1c and adds velocities +0xc,+0x14 to position x,z
-0x0601f112 func player_UpdateVerticalMotion hand provisional: adds gravity to +0x10, updates height +4, on floor hit plays sound 3,3,8,1
-0x0601f178 func map_GetPlayerTilePtr hand provisional: returns tile lookup from player x,z plus offset via trig, 0 if mode 3
-0x0601f218 func vdp1_DrawMuzzleFlashLeft hand provisional: builds quad around fixed screen coords minus sprite size, submits sprite
-0x0601f28c func vdp1_DrawMuzzleFlashRight hand provisional: builds quad at negative x offset, submits sprite flag 0x20
-0x0601f2e6 func math_InRange hand provisional: calls FUN_0601f328 and tests result within two limits
-0x0601f346 func enemy_FindTargetInList hand provisional: walks linked list up to 0x30 nodes for active flag and in-range entry
-0x0601f3e0 func enemy_ValidateTarget hand provisional: checks active flag and range, sets two player timers to 0x10
-0x0601f43e func player_UpdateTargetLock hand provisional: when weapon mode 3 finds or validates lock-on target, steps lock animation
-0x0601f53c func player_SetCameraAnchors hand provisional: copies player pos+offsets into two global vectors, returns 0x50
-0x0601f580 func player_HandleFireButtons hand provisional: on trigger bits fires weapon, sets weapon state by mode, clamps ammo to 5
-0x0601f740 func weapon_UpdateCooldownsAndFire hand provisional: counts down weapon timers, spawns projectiles with sound 2,1,x,1 by angle checks
-0x0601fd70 func weapon_SpawnPlayerShot hand provisional: converts player angle via trig then calls spawn helper with type 4
-0x0601fe2c func weapon_StepShotPath hand provisional: decrements counter, copies path table entry into player vectors
-0x0601feb4 func player_ApplyMoveAndClamp hand provisional: integrates velocities when slow, clamps to map bounds and sets collision bits 2 and 4
-0x0601ffd8 func player_ApplyFrictionAndClampXZ hand provisional: halves velocities, subtracts drag, integrates, clamps against limits
-0x06020154 func player_ApplyFrictionAndClampXZ_2 hand provisional: second friction and clamp variant on other axes velocities +0x64,+0x5c
-0x060202d4 func weapon_GetDamageValue hand provisional: reads damage table by weapon level, tripled if boost flag set
-0x06020318 func player_UpdateKnockback hand provisional: if timer above 6 increments and applies table offsets via two callbacks
-0x060204ac func player_UpdateMotionState hand provisional: runs friction update then fire or movement update depending on state
-0x060204f2 func hud_CycleWeapon hand provisional: on button cycles player+0x46 over 6 owned weapons, plays sound 2,3,0x15,1
-0x06020580 func hud_CycleAmmoType hand provisional: on button cycles player+0x48 over 4 ammo types with stock, plays sound 2,2,4,1
-0x06020648 func map_OpenDoorAtTile hand provisional: looks up door region, clears flag, sets tiles in rectangle via setter
-0x060207d4 func map_CheckExitTile hand provisional: gets tile under player, if tile type 0xd with flag 1 sets bit
-0x06020860 func game_ResetStageCounters hand provisional: zeroes two globals then calls FUN_060208f4 with -1
-0x0602087c func player_UpdateEnergyWarning hand provisional: if flag set returns 1; counts energy changes with thresholds 0x51
-0x0602095c func player_CheckDeath hand provisional: if energy player+0x30 negative sets death timer 0x14 and state 2, calls FUN_0602099c(10)
+0x0601e91c func vdp1_DrawBarSprite hand builds quad from x,y,width and submits sprite via FUN_0601e998
+0x0601e99c func player_ReadMoveInput hand pad direction switch sets forward and strafe deltas via sin/cos of heading, writes player+0x24
+0x0601ed6e func sound_PlayWalkTransition hand on movement mode change 2/3 triggers sound command with args 3,x,6/7,1
+0x0601edf6 func player_UpdateMovement hand reads pad, sets walk state, applies move vector, scales speeds, calls FUN_0601ed6e
+0x0601f024 func player_UpdateHeightFromAngle hand computes player+0x2c from trig of player+0x70 plus offset
+0x0601f062 func player_ApplyPendingVelocity hand moves player+0x74/0x7c to +0xc/+0x14 and clears them
+0x0601f0c8 func player_IntegratePosition hand updates angle +0x1c and adds velocities +0xc,+0x14 to position x,z
+0x0601f112 func player_UpdateVerticalMotion hand adds gravity to +0x10, updates height +4, on floor hit plays sound 3,3,8,1
+0x0601f178 func map_CheckPlayerTargetTile hand returns tile lookup from player x,z plus offset via trig, 0 if mode 3 (was map_GetPlayerTilePtr)
+0x0601f218 func vdp1_DrawMuzzleFlashLeft hand builds quad around fixed screen coords minus sprite size, submits sprite
+0x0601f28c func vdp1_DrawMuzzleFlashRight hand builds quad at negative x offset, submits sprite flag 0x20
+0x0601f2e6 func math_InRange hand calls FUN_0601f328 and tests result within two limits
+0x0601f346 func enemy_FindTargetInList hand walks linked list up to 0x30 nodes for active flag and in-range entry
+0x0601f3e0 func enemy_ValidateTarget hand checks active flag and range, sets two player timers to 0x10
+0x0601f43e func player_UpdateTargetLock hand when weapon mode 3 finds or validates lock-on target, steps lock animation
+0x0601f53c func player_SetCameraAnchors hand copies player pos+offsets into two global vectors, returns 0x50
+0x0601f580 func player_HandleFireButtons hand on trigger bits fires weapon, sets weapon state by mode, clamps ammo to 5
+0x0601f740 func weapon_UpdateCooldownsAndFire hand counts down weapon timers, spawns projectiles with sound 2,1,x,1 by angle checks
+0x0601fd70 func weapon_SpawnPlayerShot hand converts player angle via trig then calls spawn helper with type 4
+0x0601fe2c func weapon_StepShotPath hand decrements counter, copies path table entry into player vectors
+0x0601feb4 func player_ApplyMoveAndClamp hand integrates velocities when slow, clamps to map bounds and sets collision bits 2 and 4
+0x0601ffd8 func player_ApplyFrictionAndClampXZ hand halves velocities, subtracts drag, integrates, clamps against limits
+0x06020154 func player_ApplyFrictionAndClampXZ_2 hand second friction and clamp variant on other axes velocities +0x64,+0x5c
+0x060202d4 func weapon_GetDamageValue hand reads damage table by weapon level, tripled if boost flag set
+0x06020318 func player_UpdateKnockback hand if timer above 6 increments and applies table offsets via two callbacks
+0x060204ac func player_UpdateMotionState hand runs friction update then fire or movement update depending on state
+0x060204f2 func hud_CycleWeapon hand on button cycles player+0x46 over 6 owned weapons, plays sound 2,3,0x15,1
+0x06020580 func hud_CycleAmmoType hand on button cycles player+0x48 over 4 ammo types with stock, plays sound 2,2,4,1
+0x06020648 func map_OpenDoorAtTile hand looks up door region, clears flag, sets tiles in rectangle via setter
+0x060207d4 func map_CheckExitTile hand gets tile under player, if tile type 0xd with flag 1 sets bit
+0x06020860 func game_ResetStageCounters hand zeroes two globals then calls FUN_060208f4 with -1
+0x0602087c func player_UpdateEnergyWarning hand if flag set returns 1; counts energy changes with thresholds 0x51
+0x0602095c func player_CheckDeath hand if energy player+0x30 negative sets death timer 0x14 and state 2, calls FUN_0602099c(10)
 0x060209a0 func player_StepDeathAnimation hand provisional: decrements frame counter, loads position from table, calls effect callback
-0x06020a70 func player_SetStateNine hand provisional: sets player state halfword to 9
-0x06020a7e func player_UpdateItemTimers hand provisional: counts down item timers, sound 5,2,9,1, handles pickup effects
-0x06020cfc func game_StartCountdown hand provisional: calls two helpers and sets global timer to 0x78
+0x06020a70 func player_SetInitState hand sets player state halfword to 9 (was player_SetStateNine)
+0x06020a7e func player_UpdateScreenEffects hand counts down item timers, sound 5,2,9,1, handles pickup effects (was player_UpdateItemTimers)
+0x06020cfc func game_StartCountdown hand calls two helpers and sets global timer to 0x78
 0x06020d18 func game_SetFlagValueA hand sets global to constant DAT_06020d2c
 0x06020d22 func game_SetFlagValueB hand sets global to constant DAT_06020d2e
 0x06020d44 func game_ClearFlag hand clears global word
-0x06020d4e func player_UpdateHurtAndRespawn hand provisional: counts down timer, maps table value to player field, sets hit reaction state
-0x0602109a func player_UpdateWeaponSwitchAndDrain hand provisional: weapon slot 0 handling drains energy by 5, plays sound 2,3,0x12,1
+0x06020d4e func player_UpdateDamageState hand counts down timer, maps table value to player field, sets hit reaction state (was player_UpdateHurtAndRespawn)
+0x0602109a func player_UpdateWeaponSwitchAndDrain hand weapon slot 0 handling drains energy by 5, plays sound 2,3,0x12,1
 0x060214e8 func game_UpdateEndTimer hand provisional: counts down timer, below 0x41 triggers FUN_06021570(0xe)
-0x06021574 func player_UpdateMainStateMachine hand provisional: long per-frame logic over timers, table lookups and sound triggers
-0x06021abc func player_CheckStandingOnExit hand provisional: gets tile under player by trig offset, tests tile type 5
-0x06021c58 func player_BeginElevatorExit hand provisional: if flag set sets state 1, timer 0x14, clears velocity, calls effect 0,0,8
-0x06021cb0 func player_UpdateMoveFlag hand provisional: clears halfword, calls move check on position, latches result
-0x06021d34 func camera_SmoothFollow hand provisional: averages two target values via callback with previous globals, shift 1
-0x06021edc func player_UpdateBobbing hand provisional: adds table step to counter by random value, wraps at 0x40
-0x0602237c func player_DecayTimers hand provisional: decrements three player counters by 3,1 with floor of zero
-0x0602276c func player_InitStage hand provisional: initializes player struct fields: state 7, angle, weapons, ammo slots loop over 4
-0x060228e8 func obj_FreeBuffer3a hand provisional: if flag bit set calls free with pointer at +0x3c, clears flag
-0x06022916 func obj_FreeAndClear hand provisional: frees buffer of object at param+0x18 then clears slot
-0x0602299a func obj_UpdateBuffer hand provisional: tries alloc check; on fail frees else subtracts deltas from position fields
-0x06022a26 func map_DamageWallSegment hand provisional: reduces wall hp by amount, on negative clears 3x3 tile flags at +3
-0x06022b48 func weapon_GetDamageTableA hand provisional: reads table A by level index, tripled when param nonzero
-0x06022b7c func weapon_GetDamageTableB hand provisional: reads table B by level index, tripled when param nonzero
-0x06022bc2 func weapon_GetDamageTableC hand provisional: reads table C by level index, tripled when param nonzero
+0x06021574 func hud_UpdateStatusDisplay hand long per-frame logic over timers, table lookups and sound triggers (was player_UpdateMainStateMachine)
+0x06021abc func player_CheckStandingOnExit hand gets tile under player by trig offset, tests tile type 5
+0x06021c58 func player_BeginElevatorExit hand if flag set sets state 1, timer 0x14, clears velocity, calls effect 0,0,8
+0x06021cb0 func player_UpdateMoveFlag hand clears halfword, calls move check on position, latches result
+0x06021d34 func camera_SmoothFollow hand averages two target values via callback with previous globals, shift 1
+0x06021edc func player_UpdateBobbing hand adds table step to counter by random value, wraps at 0x40
+0x0602237c func player_DecayTimers hand decrements three player counters by 3,1 with floor of zero
+0x0602276c func player_InitStage hand initializes player struct fields: state 7, angle, weapons, ammo slots loop over 4
+0x060228e8 func obj_FreeBuffer3a hand if flag bit set calls free with pointer at +0x3c, clears flag
+0x06022916 func obj_FreeAndClear hand frees buffer of object at param+0x18 then clears slot
+0x0602299a func obj_UpdatePositionAndAnim hand tries alloc check; on fail frees else subtracts deltas from position fields (was obj_UpdateBuffer)
+0x06022a26 func map_DamageWallSegment hand reduces wall hp by amount, on negative clears 3x3 tile flags at +3
+0x06022b48 func weapon_GetDamageTableA hand reads table A by level index, tripled when param nonzero
+0x06022b7c func weapon_GetDamageTableB hand reads table B by level index, tripled when param nonzero
+0x06022bc2 func weapon_GetDamageTableC hand reads table C by level index, tripled when param nonzero
 0x06022c00 func enemy_IsTileBlocking hand provisional: calls two helpers, returns 1 if byte at +5 above 0x19
-0x0602307c func enemy_SpawnType1 hand provisional: allocates 0x10 node, sets active flag, init callback, copies 3 position args
-0x0602370c func enemy_SpawnType2 hand provisional: allocates 0x10 node, sets active flag, copies position args and trig values
-0x06023bc4 func enemy_SpawnType3 hand provisional: allocates 0x10 node, sets active flag, copies position args and trig values
-0x06023fba func enemy_SpawnType4 hand provisional: allocates 0x10 node, sets active flag, copies position args and trig values
-0x06024198 func obj_FreeAttachedBuffers hand provisional: frees buffers at +0x40,+0x44,+0x48 per flag bits 1,2,4,8,0x10
-0x06024234 func obj_FreeBuffersAndClear hand provisional: frees buffers of object at param+0x18, clears slot
-0x06024250 func obj_ClearBufferPointers hand provisional: zeroes flags and buffer pointers at +0x38..+0x48
-0x06024282 func obj_AllocBuffer0xc_Flag1 hand provisional: allocates 0xc bytes, sets flag bit 1 on success
-0x060242cc func obj_AllocBuffer0xc_Flag2 hand provisional: allocates 0xc bytes, sets flag bit 2 on success
-0x0602431a func obj_AllocBuffer0x14_Flag4 hand provisional: allocates 0x14 bytes, sets flag bit 4 on success
-0x06024368 func obj_AllocArray_Flag8 hand provisional: allocates count*0xc bytes, sets flag bit 8 on success
-0x060243c6 func obj_AllocArray_Flag10 hand provisional: allocates count*0xc bytes, sets flag bit 0x10 on success
-0x0602442a func math_BoxOverlapTest hand provisional: compares stack min/max triplets, returns 1 when ranges disjoint
-0x06024488 func math_DistSqToPlayerXZ hand provisional: squares x and z differences from player via helper and sums
-0x060244ec func math_IsWithinRadiusOfPlayer hand provisional: compares radius against squared xz distance to player
-0x06024550 func math_ApproxDistXZ hand provisional: alpha-max-beta-min style abs dx dz distance between two points
-0x060245e8 func math_ApproxDistFromPlayerXZ hand provisional: approx abs dx dz distance from player to point, reversed order
-0x06024680 func math_ApproxDistXZ_2 hand provisional: second abs dx dz approx distance between two points
-0x06024718 func math_ClampDelta hand provisional: clamps difference of two values to plus or minus limit
-0x06024772 func math_ApproxDistToPlayerXZ hand provisional: approx abs dx dz distance point minus player
-0x06024824 func math_ApproxDistPlayerToPoint hand provisional: approx abs dx dz distance player minus point
-0x060248d4 func collision_BuildBoundingBoxes hand provisional: depending on mode builds min/max boxes from center and half extents
-0x06024b42 func collision_TestBoxPair hand provisional: index from two type values selects overlap test case
-0x06024c72 func collision_TestPlayerVsObject hand provisional: builds two boxes via callbacks, tests overlap with FUN_060248d4
-0x06024e30 func collision_TestObjectVsObject hand provisional: builds boxes for two objects with param and tests overlap
-0x06025008 func math_ScaleVectorByDist hand provisional: computes direction scaled by half param using trig of distance, writes x,z
+0x0602307c func projectile_SpawnType1 hand allocates 0x10 node, sets active flag, init callback, copies 3 position args (was enemy_SpawnType1)
+0x0602370c func projectile_SpawnType2 hand allocates 0x10 node, sets active flag, copies position args and trig values (was enemy_SpawnType2)
+0x06023bc4 func projectile_SpawnType3 hand allocates 0x10 node, sets active flag, copies position args and trig values (was enemy_SpawnType3)
+0x06023fba func enemy_SpawnProjectile hand allocates 0x10 node, sets active flag, copies position args and trig values (was enemy_SpawnType4)
+0x06024198 func obj_FreeAttachedBuffers hand frees buffers at +0x40,+0x44,+0x48 per flag bits 1,2,4,8,0x10
+0x06024234 func obj_FreeBuffersAndClear hand frees buffers of object at param+0x18, clears slot
+0x06024250 func obj_ClearBufferPointers hand zeroes flags and buffer pointers at +0x38..+0x48
+0x06024282 func obj_AllocBuffer0xc_Flag1 hand allocates 0xc bytes, sets flag bit 1 on success
+0x060242cc func obj_AllocBuffer0xc_Flag2 hand allocates 0xc bytes, sets flag bit 2 on success
+0x0602431a func obj_AllocBuffer0x14_Flag4 hand allocates 0x14 bytes, sets flag bit 4 on success
+0x06024368 func obj_AllocArray_Flag8 hand allocates count*0xc bytes, sets flag bit 8 on success
+0x060243c6 func obj_AllocArray_Flag10 hand allocates count*0xc bytes, sets flag bit 0x10 on success
+0x0602442a func math_BoxOverlapTest hand compares stack min/max triplets, returns 1 when ranges disjoint
+0x06024488 func math_DistSqToPlayerXZ hand squares x and z differences from player via helper and sums
+0x060244ec func math_IsWithinRadiusOfPlayer hand compares radius against squared xz distance to player
+0x06024550 func math_Atan2AbsDXDZ hand alpha-max-beta-min style abs dx dz distance between two points (was math_ApproxDistXZ)
+0x060245e8 func math_Atan2FromPlayerXZ hand approx abs dx dz distance from player to point, reversed order (was math_ApproxDistFromPlayerXZ)
+0x06024680 func math_Atan2XZ hand second abs dx dz approx distance between two points (was math_ApproxDistXZ_2)
+0x06024718 func math_ClampDelta hand clamps difference of two values to plus or minus limit
+0x06024772 func math_AngleToPlayerXZ hand approx abs dx dz distance point minus player (was math_ApproxDistToPlayerXZ)
+0x06024824 func math_AngleToPlayerFromPoint hand approx abs dx dz distance player minus point (was math_ApproxDistPlayerToPoint)
+0x060248d4 func collision_BuildBoundingBoxes hand depending on mode builds min/max boxes from center and half extents
+0x06024b42 func collision_TestBoxPair hand index from two type values selects overlap test case
+0x06024c72 func collision_TestPlayerVsObject hand builds two boxes via callbacks, tests overlap with FUN_060248d4
+0x06024e30 func collision_TestObjectVsObject hand builds boxes for two objects with param and tests overlap
+0x06025008 func math_ScaleVectorByDist hand computes direction scaled by half param using trig of distance, writes x,z
 0x060250a0 func player_SetVelocityFromVector hand provisional: halves vector into player+0x74/0x7c minus half of +0xc/+0x14
-0x06025114 func math_NegateHalfAddPlayerVel hand provisional: negates and halves vector then adds half of player velocities
-0x0602516e func enemy_IsInPlayerRange hand provisional: returns 0 if state above 5 or x offset outside bounds around player
-0x06025214 func map_ResolveTileCollision hand provisional: large switch by tile type returns collision bitmask for x,y position in direction
-0x06025c80 func collision_ApplyPushout hand provisional: per flag bit adjusts x or z position by masked pushout value
-0x06025d54 func collision_MoveWithTileCheck hand provisional: probes map tiles at offsets via FUN_06025214 and pushes out via FUN_06025c80
-0x0602602e func collision_MoveAndSlide hand provisional: resolves x and z moves axis-wise using tile collision, restores on block
-0x06026192 func math_BlendVectorByAngle hand provisional: averages vector with trig-scaled direction (sin and cos) via halving
-0x06026218 func math_StepTowards hand provisional: moves value toward target by limited step, returns 1 when reached
-0x060262a0 func math_IsNearPlayerAxisAligned hand provisional: tests abs dx and abs dz against threshold vs player
+0x06025114 func math_NegateHalfAddPlayerVel hand negates and halves vector then adds half of player velocities
+0x0602516e func enemy_IsInPlayerRange hand returns 0 if state above 5 or x offset outside bounds around player
+0x06025214 func map_ResolveTileCollision hand large switch by tile type returns collision bitmask for x,y position in direction
+0x06025c80 func collision_ApplyPushout hand per flag bit adjusts x or z position by masked pushout value
+0x06025d54 func collision_MoveWithTileCheck hand probes map tiles at offsets via FUN_06025214 and pushes out via FUN_06025c80
+0x0602602e func collision_MoveAndSlide hand resolves x and z moves axis-wise using tile collision, restores on block
+0x06026192 func math_BlendVectorByAngle hand averages vector with trig-scaled direction (sin and cos) via halving
+0x06026218 func math_StepTowards hand moves value toward target by limited step, returns 1 when reached
+0x060262a0 func math_IsNearPlayerAxisAligned hand tests abs dx and abs dz against threshold vs player
 0x060262fc func map_GetTileNibble hand provisional: looks up tile data pointer and returns low 4 bits by mode param
-0x06026398 func math_RelativeToPlayerFacing hand provisional: rotates point offset by player angle via sin/cos multiplies
-0x060264dc func enemy_ComputeScreenPosition hand provisional: when mode 9 rotates relative position by player angle, stores result
-0x060265a0 func enemy_ComputeSpriteSize hand provisional: when mode 9 clamps distance to 0x10 and adds table width value
-0x06026610 func math_ScaleClamped hand provisional: multiplies param by ratio, clamps between 0x10 and param
-0x0602666c func game_UpdateDungeonEvents hand provisional: checks player tile type 0x1b,0x1a and triggers events with flag sets
-0x0602692c func map_FindFreeSlotInTable hand provisional: selects table by index, scans for free entry under count limit
-0x06026a22 func map_PickRandomTile hand provisional: masks random numbers to x 0x7f y 0x3f within map bounds and checks tile
-0x06026b9a func enemy_UpdateAllInList hand provisional: loops entries with active flag, builds position vector and checks distance threshold
-0x06026cc0 func enemy_UpdateAllWithTimer hand provisional: counts down timer to set flag and call callback, then runs picker and updater
-0x06026e44 func actor_InitState hand provisional: actor state handler, initializes object slot fields and sets next handler pointer at +8
+0x06026398 func hud_DrawRadarArrow hand rotates point offset by player angle via sin/cos multiplies (was math_RelativeToPlayerFacing)
+0x060264dc func enemy_ComputeScreenPosition hand when mode 9 rotates relative position by player angle, stores result
+0x060265a0 func enemy_ComputeSpriteSize hand when mode 9 clamps distance to 0x10 and adds table width value
+0x06026610 func math_ScaleClamped hand multiplies param by ratio, clamps between 0x10 and param
+0x0602666c func game_UpdateDungeonEvents hand checks player tile type 0x1b,0x1a and triggers events with flag sets
+0x0602692c func map_FindFreeSlotInTable hand selects table by index, scans for free entry under count limit
+0x06026a22 func map_PickRandomTile hand masks random numbers to x 0x7f y 0x3f within map bounds and checks tile
+0x06026b9a func enemy_UpdateAllInList hand loops entries with active flag, builds position vector and checks distance threshold
+0x06026cc0 func enemy_UpdateAllWithTimer hand counts down timer to set flag and call callback, then runs picker and updater
+0x06026e44 func player_InitSpawn hand actor state handler, initializes object slot fields and sets next handler pointer at +8 (was actor_InitState)
 0x06026f84 func actor_WaitState hand provisional: actor wait state handler, counts frames then switches handler
-0x06026fd4 func actor_FreeSlot hand provisional: clears actor slot flags and releases the object slot
-0x06027004 func actor_UpdateState hand provisional: per-frame actor update handler moving object and checking state at +0x10
+0x06026fd4 func actor_FreeSlot hand clears actor slot flags and releases the object slot
+0x06027004 func actor_FreeOnDeath hand per-frame actor update handler moving object and checking state at +0x10 (was actor_UpdateState)
 0x060270c0 func actor_UpdateState_2 hand provisional: second actor update handler with state at +0x10 and vtable pointer at +0x18
-0x0602746e func proj_SpawnProjectile hand provisional: allocates object slot and fills 0x40-byte projectile record with position and velocity
-0x060314f4 func level_SpawnObjects hand provisional: iterates level data table and spawns objects via pointer-called helpers
-0x06031abc func level_SpawnObjects_2 hand provisional: second level object spawn pass over table entries
-0x06031bb0 func item_RandomSpawn hand provisional: random-chance spawn of item type chosen from a table
-0x06031c84 func map_ScanForItems hand provisional: scans map cells looking for item markers and records positions
-0x06031da2 func item_SpawnAtMapPositions hand provisional: spawns items at recorded map positions
+0x0602746e func proj_SpawnProjectile hand allocates object slot and fills 0x40-byte projectile record with position and velocity
+0x060314f4 func level_SpawnSingleObject hand iterates level data table and spawns objects via pointer-called helpers (was level_SpawnObjects)
+0x06031abc func item_SpawnInstance hand second level object spawn pass over table entries (was level_SpawnObjects_2)
+0x06031bb0 func item_RandomSpawn hand random-chance spawn of item type chosen from a table
+0x06031c84 func map_ScanForItems hand scans map cells looking for item markers and records positions
+0x06031da2 func item_SpawnAtMapPositions hand spawns items at recorded map positions
 0x06031e88 func stub_06031e88 hand tiny stub that only returns
 0x06031e92 func item_SpawnByType hand provisional: spawns one item by type index
-0x06031eae func item_SpawnTable hand provisional: item spawn dispatcher using type table
-0x060320ac func item_SpawnByTypeTable hand provisional: spawn by type from 16-entry table
-0x06032140 func item_SpawnRecursive hand provisional: recursive item spawn walking nested entries
-0x060321f4 func item_SpawnFinish hand provisional: finishing pass after item spawning
-0x0603225c func buf_FreeSubBuffers hand provisional: frees the three sub-buffers of a record
-0x060322fc func buf_FreeSubBuffers_2 hand provisional: second variant freeing three sub-buffers
-0x06032398 func buf_ClearSubBufferFields hand provisional: clears sub-buffer pointer and size fields
-0x06032530 func obj_SpawnTypedObject hand provisional: spawns 0x20-byte object with type taken from a table
-0x060327c0 func sprite_DrawRotatedQuad hand provisional: draws fixed-point rotated and scaled quad with sprite
-0x06032a3a func mem_CopyTableToBuffer hand provisional: copies a table to a buffer
-0x06032a6e func text_DrawAt hand provisional: draws text at position into VDP2 tile map, char minus 0x20, 0x40 stride
-0x06032ac4 func text_PrintFormatted hand provisional: formats text then draws it to the tile map
+0x06031eae func item_InitSpawnState hand item spawn dispatcher using type table (was item_SpawnTable)
+0x060320ac func item_SpawnByTypeTable hand spawn by type from 16-entry table
+0x06032140 func item_SpawnRecursive hand recursive item spawn walking nested entries
+0x060321f4 func item_SpawnFinish hand finishing pass after item spawning
+0x0603225c func buf_FreeSubBuffers hand frees the three sub-buffers of a record
+0x060322fc func buf_FreeSubBuffers_2 hand second variant freeing three sub-buffers
+0x06032398 func buf_ClearSubBufferFields hand clears sub-buffer pointer and size fields
+0x06032530 func obj_SpawnTypedObject hand spawns 0x20-byte object with type taken from a table
+0x060327c0 func sprite_DrawRotatedQuad hand draws fixed-point rotated and scaled quad with sprite
+0x06032a3a func mem_CopyTableToBuffer hand copies a table to a buffer
+0x06032a6e func text_DrawAt hand draws text at position into VDP2 tile map, char minus 0x20, 0x40 stride
+0x06032ac4 func text_PrintFormatted hand formats text then draws it to the tile map
 0x06032b14 func str_GetBaseName hand provisional: extracts file base name up to the dot
-0x06032b8a func math_RandomSin hand provisional: sine table lookup from random value
-0x06032c16 func math_AngleCos hand provisional: cosine table lookup from angle value
-0x06032c90 func list_FindNthFree hand provisional: finds the nth free object in a list
-0x06032cfc func text_ScreenInit hand provisional: screen and VDP2 text initialization
-0x06032eee func sys_WaitCount hand provisional: waits for a frame count
-0x06032f4e func math_AngleWrap hand provisional: wraps angle into valid range
-0x06032fc0 func text_PrintMultiline hand provisional: prints multi-line string
-0x06033046 func text_CopyAndPrint hand provisional: copies string then prints it
-0x060330b4 func map_CellAddr hand provisional: returns address of 6-byte map cell
-0x060330e6 func map_CellAddr_2 hand provisional: second cell address helper, 0x50-wide map
-0x06033158 func map_CellGet hand provisional: small wrapper reading map cell field
-0x060331ac func map_CellGet_2 hand provisional: small wrapper reading another map cell field
+0x06032b8a func math_SinTableLookup hand sine table lookup from random value (was math_RandomSin)
+0x06032c16 func math_AngleCos hand cosine table lookup from angle value
+0x06032c90 func list_FindNthFree hand finds the nth free object in a list
+0x06032cfc func text_ScreenInit hand screen and VDP2 text initialization
+0x06032eee func sys_WaitCount hand waits for a frame count
+0x06032f4e func math_AngleWrap hand wraps angle into valid range
+0x06032fc0 func text_PrintMultiline hand prints multi-line string
+0x06033046 func text_CallAndPrint hand copies string then prints it (was text_CopyAndPrint)
+0x060330b4 func map_CellAddr hand returns address of 6-byte map cell
+0x060330e6 func map_CellAddr_2 hand second cell address helper, 0x50-wide map
+0x06033158 func map_CoordDecode hand small wrapper reading map cell field (was map_CellGet)
+0x060331ac func map_CellSetType hand small wrapper reading another map cell field (was map_CellGet_2)
 0x060331f8 func map_CellSet hand provisional: small wrapper writing map cell field
-0x060332e4 func map_CellFlagTest hand provisional: small wrapper testing cell flag bits
+0x060332e4 func map_CellFlagTest2 hand small wrapper testing cell flag bits (was map_CellFlagTest)
 0x0603332c func map_CellFlagSet hand provisional: small wrapper setting cell flag bits
-0x06033370 func map_CellFlagClear hand provisional: small wrapper clearing cell flag bits
-0x060333c0 func room_FindContainingPoint hand provisional: finds room entry containing a point
-0x060334b4 func gen_FillTypeTable1 hand provisional: fills 100-entry type table 1 for generator
-0x06033578 func gen_FillTypeTable2 hand provisional: fills 100-entry type table 2 for generator
-0x060336ba func gen_FillTypeTable3 hand provisional: fills 100-entry type table 3 for generator
-0x06033808 func gen_FillTypeTable4 hand provisional: fills 100-entry type table 4 for generator
-0x0603394a func gen_FillTypeTable5 hand provisional: fills 100-entry type table 5 for generator
-0x06033a74 func gen_InitAllTables hand provisional: runs all type table fill functions once
-0x06033afc func math_RandomRange hand provisional: random number within a range
-0x06033b74 func gen_SetParamPointer hand provisional: sets generator parameter pointer
-0x06033bc4 func gen_ClearBuffer hand provisional: clears generator buffer
-0x06033c1c func map_CheckPassable hand provisional: checks whether a cell is passable
-0x06033cce func map_CheckPassable_2 hand provisional: second passable check variant
-0x06033dd8 func gen_CellTypeCheck hand provisional: checks cell type for generator placement
-0x06033f50 func gen_CombineTypeMasks hand provisional: combines type masks of cells
-0x06034008 func gen_CellNeighborCheck hand provisional: checks neighbor cells for generator
-0x06034090 func gen_CarveCorridor hand provisional: carves corridor cells in the map
-0x06034200 func gen_ChooseCorridorDir hand provisional: chooses corridor direction
-0x06034480 func gen_WalkCorridor hand provisional: walks along a corridor step by step
-0x0603456a func gen_StampCorridor hand provisional: stamps corridor cells into map
-0x0603477e func gen_ConnectPointsL hand provisional: connects two points with an L-shaped path
-0x06034876 func gen_ConnectPointsL_2 hand provisional: second L-shaped path connector variant
-0x06034a60 func gen_RecordPath hand provisional: records a path into link entry
-0x06034b58 func gen_DoorPosition hand provisional: computes door position on room edge
-0x06034c4a func gen_LinkRooms hand provisional: links two rooms with corridor and door
-0x06034eb4 func gen_StampRoomTemplate hand provisional: stamps a room template into the cell map
-0x06035016 func gen_InitBuffers hand provisional: initializes generator buffers
-0x06035108 func map_CellFill hand provisional: fills a cell rectangle
-0x060351ca func gen_ResizeRoomTemplate hand provisional: resizes a room template
-0x060354f2 func gen_AllocRoomCopy hand provisional: allocates a copy of a room entry
-0x0603568c func gen_PlaceRoom hand provisional: places one room on the map
-0x060357a0 func gen_PlaceAllRooms hand provisional: places all rooms
-0x0603584a func room_GetRect hand provisional: returns room rectangle
-0x06035920 func link_GetOtherEnd hand provisional: returns other end of a link
-0x06035960 func link_PickDirection hand provisional: picks a link or direction
-0x06035abc func link_PickDirection_2 hand provisional: second link pick variant
-0x06035b9a func link_PickDirection_3 hand provisional: third link pick variant
-0x06035c7a func door_CheckPosition hand provisional: door position check
-0x06035d90 func door_CheckPosition_2 hand provisional: second door position check
-0x06035eae func room_ClearCells hand provisional: clears room cells
-0x06035fd6 func room_ClearUnused hand provisional: clears unused rooms
-0x06036080 func gen_BuildLayout hand provisional: main stage layout builder, rooms corridors doors
-0x060366e8 func gen_PickPlayerStart hand provisional: picks player start position
-0x06036828 func gen_PlaceExit hand provisional: places exit or elevator
-0x06036948 func gen_PlaceItemsInRooms hand provisional: places items in rooms
-0x06036b16 func gen_PlaceItemsInRooms_2 hand provisional: second item placement pass in rooms
-0x06036cde func gen_PlaceSpecialItem hand provisional: places a special item
-0x06036e5c func list_Count hand provisional: counts entries in a list
-0x06036e92 func gen_GenerateLevelLoop hand provisional: level generation loop retrying until valid
-0x06037024 func stage_LoadFixedVariantA hand provisional: loads fixed-level variant A
-0x06037056 func stage_LoadFixedVariantB hand provisional: loads fixed-level variant B
-0x0603709c func stage_GenerateByMode hand provisional: generates stage by mode
-0x0603711c func vdp2_CopyTileMap_2 hand provisional: tile-map copy
-0x060371c8 func vdp2_ClearTileMap hand provisional: tile-map clear
+0x06033370 func map_CellFlagGet hand small wrapper clearing cell flag bits (was map_CellFlagClear)
+0x060333c0 func room_FindContainingPoint hand finds room entry containing a point
+0x060334b4 func gen_FillTypeTable1 hand fills 100-entry type table 1 for generator
+0x06033578 func gen_FillTypeTable2 hand fills 100-entry type table 2 for generator
+0x060336ba func gen_FillTypeTable3 hand fills 100-entry type table 3 for generator
+0x06033808 func gen_FillTypeTable4 hand fills 100-entry type table 4 for generator
+0x0603394a func gen_FillTypeTable5 hand fills 100-entry type table 5 for generator
+0x06033a74 func gen_InitAllTables hand runs all type table fill functions once
+0x06033afc func math_RandomRange hand random number within a range
+0x06033b74 func gen_SetParamPointer hand sets generator parameter pointer
+0x06033bc4 func gen_ClearBuffer hand clears generator buffer
+0x06033c1c func map_CheckPassable hand checks whether a cell is passable
+0x06033cce func map_CheckPassable_2 hand second passable check variant
+0x06033dd8 func map_CheckCellFlagMatch hand checks cell type for generator placement (was gen_CellTypeCheck)
+0x06033f50 func gen_CombineTypeMasks hand combines type masks of cells
+0x06034008 func gen_CellNeighborCheck hand checks neighbor cells for generator
+0x06034090 func gen_CarveCorridor hand carves corridor cells in the map
+0x06034200 func gen_ChooseCorridorDir hand chooses corridor direction
+0x06034480 func gen_WalkCorridor hand walks along a corridor step by step
+0x0603456a func gen_StampCorridor hand stamps corridor cells into map
+0x0603477e func gen_ConnectPointsL hand connects two points with an L-shaped path
+0x06034876 func gen_ConnectPointsL_2 hand second L-shaped path connector variant
+0x06034a60 func gen_RecordPath hand records a path into link entry
+0x06034b58 func gen_DoorPosition hand computes door position on room edge
+0x06034c4a func gen_LinkRooms hand links two rooms with corridor and door
+0x06034eb4 func gen_StampRoomTemplate hand stamps a room template into the cell map
+0x06035016 func gen_InitBuffers hand initializes generator buffers
+0x06035108 func map_FillCellRow hand fills a cell rectangle (was map_CellFill)
+0x060351ca func gen_ResizeRoomTemplate hand resizes a room template
+0x060354f2 func gen_AllocRoomCopy hand allocates a copy of a room entry
+0x0603568c func gen_PlaceRoom hand places one room on the map
+0x060357a0 func gen_PlaceAllRooms hand places all rooms
+0x0603584a func room_GetRect hand returns room rectangle
+0x06035920 func link_GetOtherEnd hand returns other end of a link
+0x06035960 func link_PickDirection hand picks a link or direction
+0x06035abc func link_PickDirection_2 hand second link pick variant
+0x06035b9a func link_PickOpenDirection hand third link pick variant (was link_PickDirection_3)
+0x06035c7a func door_CheckPosition hand door position check
+0x06035d90 func door_CheckPosition_2 hand second door position check
+0x06035eae func room_ClearCells hand clears room cells
+0x06035fd6 func room_ClearUnused hand clears unused rooms
+0x06036080 func gen_BuildLayout hand main stage layout builder, rooms corridors doors
+0x060366e8 func gen_PickPlayerStart hand picks player start position
+0x06036828 func gen_PlaceExit hand places exit or elevator
+0x06036948 func gen_PlaceItemsInRooms hand places items in rooms
+0x06036b16 func gen_PlaceItemsInRooms_2 hand second item placement pass in rooms
+0x06036cde func gen_PlaceSpecialItem hand places a special item
+0x06036e5c func list_Count hand counts entries in a list
+0x06036e92 func gen_GenerateLevelLoop hand level generation loop retrying until valid
+0x06037024 func stage_LoadFixedLevelA hand loads fixed-level variant A (was stage_LoadFixedVariantA)
+0x06037056 func stage_LoadFixedVariantB hand loads fixed-level variant B
+0x0603709c func stage_GenerateByMode hand generates stage by mode
+0x0603711c func vdp2_CopyTileMap_2 hand tile-map copy
+0x060371c8 func vdp2_ClearTileMap hand tile-map clear
 0x06037334 func mem_CopyBytes hand byte copy helper
 0x06037378 func mem_CopyWords hand word copy helper
-0x0603740a func gfx_Unpack_0603740a hand provisional: decompression or copy helper for graphics data
-0x0603745a func gfx_Unpack_0603745a hand provisional: decompression or copy helper for graphics data variant
-0x06037494 func gfx_DecompressByType hand provisional: decompress data selected by type
-0x0603752c func gfx_Unpack_0603752c hand provisional: graphics data unpack helper
-0x0603757a func gfx_Unpack_0603757a hand provisional: graphics data unpack helper variant
+0x0603740a func gfx_CopyTileMapRow hand decompression or copy helper for graphics data (was gfx_Unpack_0603740a)
+0x0603745a func gfx_ClearTileMapIfMatch hand decompression or copy helper for graphics data variant (was gfx_Unpack_0603745a)
+0x06037494 func gfx_DecompressByType hand decompress data selected by type
+0x0603752c func gfx_Unpack_0603752c hand graphics data unpack helper
+0x0603757a func gfx_FadePaletteRows hand graphics data unpack helper variant (was gfx_Unpack_0603757a)
 0x06037634 func gfx_Unpack_06037634 hand provisional: graphics data unpack helper variant two
-0x060377a8 func title_FadeStateHandler hand provisional: title or logo fade state handler
-0x06037994 func title_InitHandler hand provisional: title init state handler
-0x06037a3c func title_ScreenRun hand provisional: title screen run, loads TITLE.BIN
-0x06037df4 func title_FadeHandler hand provisional: fade state handler
-0x06037f84 func screen_InitHandler hand provisional: screen init state handler
-0x06037fe8 func title_ScreenInit2 hand provisional: title-like screen init, loads TITLE.BIN again, VDP2 setup and wait loop
-0x06038384 func gfx_RemapNonzeroBytes hand provisional: remaps nonzero bytes in buffer to a constant color index
-0x060383f8 func text_ScrollBuffer hand provisional: scrolls text bitmap buffer up by param rows copying words
-0x06038446 func text_PutCharBitmap hand provisional: draws 8x8 font glyph into bitmap, handles newline with scroll
-0x0603854a func text_PutString hand provisional: draws null-terminated string via per-char draw
-0x06038580 func text_SetCursorParams hand provisional: stores cursor position parameters
+0x060377a8 func title_FadeStateHandler hand title or logo fade state handler
+0x06037994 func title_InitHandler hand title init state handler
+0x06037a3c func title_ScreenRun hand title screen run, loads TITLE.BIN
+0x06037df4 func title_FadeHandler hand fade state handler
+0x06037f84 func screen_InitHandler hand screen init state handler
+0x06037fe8 func title_ScreenInit2 hand title-like screen init, loads TITLE.BIN again, VDP2 setup and wait loop
+0x06038384 func gfx_RemapNonzeroBytes hand remaps nonzero bytes in buffer to a constant color index
+0x060383f8 func text_ScrollBuffer hand scrolls text bitmap buffer up by param rows copying words
+0x06038446 func text_PutCharBitmap hand draws 8x8 font glyph into bitmap, handles newline with scroll
+0x0603854a func text_PutString hand draws null-terminated string via per-char draw
+0x06038580 func text_SetCursorParams hand stores cursor position parameters
 0x060385a0 func mem_ClearWords hand clears a block of words
-0x060385e0 func gfx_FillMapByFormat hand provisional: fills tile map with value, 16-bit or 32-bit by format flag, returns entry size
-0x060387ac func text_SpawnGlyphObject hand provisional: allocates object slot and fills glyph record with char and position
+0x060385e0 func gfx_FillMapByFormat hand fills tile map with value, 16-bit or 32-bit by format flag, returns entry size
+0x060387ac func text_SpawnGlyphObject hand allocates object slot and fills glyph record with char and position
 0x0603883c func text_SetCursorParams_2 hand provisional: second cursor parameter setter
-0x0603885c func text_PrintCharCtl hand provisional: handles control chars newline and glyph spawn, returns next string pointer
-0x060389b8 func scene_FadeStateHandler hand provisional: fade out state handler with phases at +0x30, frees slot when done
-0x06038ab6 func scene_SpawnFadeHandler hand provisional: allocates object slot to run fade handler
-0x06038b18 func scene_FadeStateHandler_2 hand provisional: two-phase fade handler variant
+0x0603885c func text_PrintCharCtl hand handles control chars newline and glyph spawn, returns next string pointer
+0x060389b8 func scene_FadeStateHandler hand fade out state handler with phases at +0x30, frees slot when done
+0x06038ab6 func scene_SpawnFadeHandler hand allocates object slot to run fade handler
+0x06038b18 func scene_FadeStateHandler_2 hand two-phase fade handler variant
 0x06038c30 func scene_SpawnFadeHandler_2 hand provisional: allocates object slot to run second fade handler
-0x06039288 func scene_IntroStateHandler hand provisional: scene state handler setting up VDP2 buffers, spawns fade at frame 3, switches handler at 0x5c
-0x060393a0 func title_ScreenRun_2 hand provisional: title screen setup loading TITLE.BIN, VDP2 palette fill, wait loop
-0x06039b88 func scene_IntroStateHandler_2 hand provisional: intro state handler variant via pointer calls, handler switch at 0x5c
-0x06039ca8 func title_ScreenRun_3 hand provisional: third title screen setup loading TITLE.BIN, wait loop
-0x0603a134 func screen_GameOverMenu hand provisional: game over screen, loads OVER.CPK, retry prompt text, input loop
+0x06039288 func scene_IntroStateHandler hand scene state handler setting up VDP2 buffers, spawns fade at frame 3, switches handler at 0x5c
+0x060393a0 func title_ScreenRun_2 hand title screen setup loading TITLE.BIN, VDP2 palette fill, wait loop
+0x06039b88 func scene_IntroStateHandler_2 hand intro state handler variant via pointer calls, handler switch at 0x5c
+0x06039ca8 func title_ScreenRun_3 hand third title screen setup loading TITLE.BIN, wait loop
+0x0603a134 func screen_GameOverMenu hand game over screen, loads OVER.CPK, retry prompt text, input loop
 0x0603a554 func sys_GetConstant_0603a554 hand provisional: returns constant value
-0x0603a55a func cd_ReadStatusReg hand provisional: returns CD-block-like register value from pointer, 16-bit
-0x0603a560 func cd_SetHirqMaskOr hand provisional: ors register into HIRQ shadow then writes mask with bit 0 set
-0x0603a57a func cd_WriteHirqReg hand provisional: writes 16-bit value to register pointer
-0x0603a58c func cd_ResetHirq hand provisional: writes constant to register and clears shadow
-0x0603a59e func cd_OrHirqShadow hand provisional: ors bits into HIRQ shadow
-0x0603a5c8 func cd_ReadWordsToBuffer hand provisional: reads param words from register into buffer and checks count
-0x0603a62e func cd_ExecCommandWrapper hand provisional: wrapper calling command execution function
-0x0603a666 func cd_ExecCommand hand provisional: waits HIRQ, writes command regs, reads response, returns error codes -1 -2 -5 -6
-0x0603a70c func cd_PollResponseReg hand provisional: polls HIRQ for bit until count, copies value, returns 0 or -3
+0x0603a55a func cd_ReadStatusReg hand returns CD-block-like register value from pointer, 16-bit
+0x0603a560 func cd_SetHirqMaskOr hand ors register into HIRQ shadow then writes mask with bit 0 set
+0x0603a57a func cd_WriteHirqReg hand writes 16-bit value to register pointer
+0x0603a58c func cd_ResetHirq hand writes constant to register and clears shadow
+0x0603a59e func cd_OrHirqShadow hand ors bits into HIRQ shadow
+0x0603a5c8 func cd_ReadWordsToBuffer hand reads param words from register into buffer and checks count
+0x0603a62e func cd_ExecCommandWrapper hand wrapper calling command execution function
+0x0603a666 func cd_ExecCommand hand waits HIRQ, writes command regs, reads response, returns error codes -1 -2 -5 -6
+0x0603a70c func cd_PollResponseReg hand polls HIRQ for bit until count, copies value, returns 0 or -3
 0x0603a748 func cd_WriteCommandRegs hand writes four command words to CR1-CR4 registers
 0x0603a76a func cd_ReadResponseRegs hand reads four response words from CR1-CR4 registers
-0x0603a79c func bits_InsertField8 hand provisional: insert r0 value into byte at r2 using width/shift packed in r1 (bitfield write)
-0x0603a804 func bits_InsertField32Signed hand provisional: insert bitfield into 32-bit word at r2 and return sign-extended field value
-0x0603a8a4 func bits_InsertField32 hand provisional: insert bitfield of width/shift in r1 into 32-bit word at r2
-0x0603a90c func bits_ExtractField8 hand provisional: extract unsigned bitfield from byte at r2 by shift/width packed in r1
-0x0603a948 func bits_ExtractFieldSigned32 hand provisional: extract sign-extended bitfield from 32-bit word at r2
+0x0603a79c func bits_InsertField8 hand insert r0 value into byte at r2 using width/shift packed in r1 (bitfield write)
+0x0603a804 func bits_InsertField32Signed hand insert bitfield into 32-bit word at r2 and return sign-extended field value
+0x0603a8a4 func bits_InsertField32 hand insert bitfield of width/shift in r1 into 32-bit word at r2
+0x0603a90c func bits_ExtractField8 hand extract unsigned bitfield from byte at r2 by shift/width packed in r1
+0x0603a948 func bits_ExtractFieldSigned32 hand extract sign-extended bitfield from 32-bit word at r2
 0x0603a980 func math_SDiv32Div1 hand compiler runtime signed 32-bit divide, unrolled SH-2 div1 steps; sets error global on zero divisor
-0x0603aa34 func math_UDiv32Div1 hand provisional: compiler runtime unsigned 32-bit divide using unrolled div1 steps
-0x0603aadc func math_Div64By32Div1 hand provisional: runtime 64-by-32 divide via div1 sequence, returns 64-bit result
-0x0603aba4 func math_Div64By32Div1_2 hand provisional: second runtime 64-bit divide variant using div1 steps
+0x0603aa34 func math_UDiv32Div1 hand compiler runtime unsigned 32-bit divide using unrolled div1 steps
+0x0603aadc func math_Div64By32Div1 hand runtime 64-by-32 divide via div1 sequence, returns 64-bit result
+0x0603aba4 func math_Div64By32Div1_2 hand second runtime 64-bit divide variant using div1 steps
 0x0603ac5c func mem_CopyWordsJump hand word copy tail; sizes up to 0x40 dispatch through jump table, else 8-byte loop
 0x0603ad1c func mem_CopyBytesUnrolled hand byte copy loop unrolled four per pass with bounds checks
 0x0603ad74 func math_ShiftDispatch hand runtime variable shift via jump table of shift stubs, count 0..31 else 0
@@ -443,9 +443,9 @@
 0x0603b494 func fp_FloatToDouble hand soft-float single to double conversion (extendsfdf2) with denormal normalize
 0x0603b51c func fp_UIntToDouble hand soft-float unsigned int to double conversion (floatunsidf)
 0x0603b55c func rand_Next hand linear congruential random generator on global seed, returns masked high bits
-0x0603b588 func sys_CallIndirect4 hand provisional: calls function pointer with args 1,0,param and stack pointer
+0x0603b588 func sys_FormatString hand calls function pointer with args 1,0,param and stack pointer (was sys_CallIndirect4)
 0x0603b5c0 func state_SetGlobal hand stores argument into a global word
-0x0603b5cc func cdc_ExecGetStatus hand provisional: clears command buffer, issues CD command 0 (get status), then calls follow-up with arg
+0x0603b5cc func cdc_ExecGetStatus hand clears command buffer, issues CD command 0 (get status), then calls follow-up with arg
 0x0603b5fe func cdc_CallFollowUp hand calls function pointer then returns 0
 0x0603b60c func cdc_GetStatusChecked hand reads stable CD status via cdc_GetStatusStable and returns -8 on bad status flags
 0x0603b658 func cdc_GetStatusStable hand reads CD status twice until equal, up to 100 retries, returns -3 on failure
@@ -454,9 +454,9 @@
 0x0603b79c func cdc_GetSessionInfo hand CD block command 0x03 get session info, returns reply word
 0x0603b7e2 func cdc_InitCdSystem hand CD block command 0x04 initialize CD system with flags, speed, delay and reset wait
 0x0603b890 func cdc_OpenTray hand CD block command 0x05 open tray
-0x0603b8b0 func cdc_ResetAndCheck hand provisional: issues CD init/reset, checks status flag 0x80, returns error -4 and ends transfer
+0x0603b8b0 func cdc_ResetAndCheck hand issues CD init/reset, checks status flag 0x80, returns error -4 and ends transfer
 0x0603b910 func cdc_EndDataTransfer hand CD block command 0x06 end data transfer, returns masked transfer size
-0x0603b964 func math_Div16Div1 hand provisional: runtime 16-bit divisor divide via div1 sequence
+0x0603b964 func math_Div16Div1 hand runtime 16-bit divisor divide via div1 sequence
 0x0603b9d4 func math_ShiftRightArithDispatch hand runtime arithmetic right shift via jump table, sign fill for counts >= 32
 0x0603bb78 func math_ShiftRight28 hand runtime shift stub returning r0 >> 28
 0x0603bbc6 func math_ShiftRight8 hand runtime shift stub returning r0 >> 8
@@ -514,31 +514,31 @@
 0x0603de44 func strcpy hand string copy, word-aligned fast path else byte loop
 0x0603deb4 func math_ShiftDispatch_2 hand runtime variable shift via signed-byte offset table, 0 if count >= 32
 0x0603dec0 func math_ShiftJump hand shift dispatch jump into offset table by count in r1
-0x0603df54 func fpdec_UnpackNumber hand provisional: unpacks 8-byte decimal/extended float into digits, sign and exponent
-0x0603e21c func fpdec_MantissaToDigits hand provisional: converts 8-byte mantissa to ASCII digit string by repeated multiply
+0x0603df54 func fpdec_UnpackNumber hand unpacks 8-byte decimal/extended float into digits, sign and exponent
+0x0603e21c func fpdec_MantissaToDigits hand converts 8-byte mantissa to ASCII digit string by repeated multiply
 0x0603e358 func strlen hand counts bytes until NUL
 0x0603e368 func strncmp hand compares up to n chars, stops at NUL
 0x0603e3b0 func strncpy hand copies up to n chars and NUL-pads remainder
 0x0603e658 func strcmp_Aligned hand word-wise string compare with zero-byte detection
 0x0603e6d0 func strcpy_Aligned hand word-wise string copy with zero-byte detection
 0x0603e734 func mem_IsZero hand returns 1 if all n bytes are zero
-0x0603e758 func fpdec_ScaleByPow10 hand provisional: scales mantissa by power of ten using table multiply or divide
-0x0603e86c func fpdec_DoubleToExtended hand provisional: unpacks double then rounds and repacks, calls fpdec_UnpackDouble
-0x0603e8e8 func fpdec_UnpackDouble hand provisional: splits double into sign, exponent and mantissa fields
-0x0603ea14 func fp_TruncateFraction hand provisional: clears fractional mantissa bits of double (floor-like) by exponent
-0x0603eb6c func bigint_ShiftLeftBits hand provisional: shifts byte array left by bit count carrying between bytes
+0x0603e758 func fpdec_ScaleByPow10 hand scales mantissa by power of ten using table multiply or divide
+0x0603e86c func fpdec_DoubleToInt hand unpacks double then rounds and repacks, calls fpdec_UnpackDouble (was fpdec_DoubleToExtended)
+0x0603e8e8 func fpdec_UnpackDouble hand splits double into sign, exponent and mantissa fields
+0x0603ea14 func fp_TruncateFraction hand clears fractional mantissa bits of double (floor-like) by exponent
+0x0603eb6c func bigint_ShiftLeftBits hand shifts byte array left by bit count carrying between bytes
 0x0603ebe8 func fpdec_LoadPow10Entry hand copies 8-byte table entry index*8 to destination
-0x0603ec0c func bigint_ShiftRightBits hand provisional: shifts byte array right by bit count carrying between bytes
+0x0603ec0c func bigint_ShiftRightBits hand shifts byte array right by bit count carrying between bytes
 0x0603ec94 func bigint_SubWords16 hand subtracts 16-bit word arrays with borrow, returns zero/negative status
 0x0603ed30 func memcmp_2 hand byte compare of n bytes, returns difference
-0x0603ed6c func fpdec_UnpackExtended hand provisional: splits extended float into sign, exponent and normalized mantissa bytes
-0x0603ee14 func fpdec_DivideMantissa hand provisional: 66-step shift-subtract long division of two mantissas
-0x0603efe8 func fpdec_ClassifyExtended hand provisional: classifies extended float exponent 0x7f pattern, returns 0, 1 or 2
+0x0603ed6c func fpdec_UnpackExtended hand splits extended float into sign, exponent and normalized mantissa bytes
+0x0603ee14 func fpdec_DivideMantissa hand 66-step shift-subtract long division of two mantissas
+0x0603efe8 func fpdec_ClassifyExtended hand classifies extended float exponent 0x7f pattern, returns 0, 1 or 2
 0x0603f040 func bigint_ShiftLeft1 hand shifts byte array left one bit, returns carry out
-0x0603f084 func fpdec_MulExtended hand provisional: adds exponents, multiplies mantissas, renormalizes
-0x0603f0f8 func fpdec_IntToExtended hand provisional: converts integer to extended decimal float with sign
-0x0603f258 func fpdec_RoundBitCheck hand provisional: examines guard/round bits of mantissa bytes for rounding
-0x0603f36c func fpdec_SetStickyBit hand provisional: ORs sticky bit into mantissa when lower bits non-zero
+0x0603f084 func fpdec_MulExtended hand adds exponents, multiplies mantissas, renormalizes
+0x0603f0f8 func fpdec_IntToExtended hand converts integer to extended decimal float with sign
+0x0603f258 func fpdec_RoundBitCheck hand examines guard/round bits of mantissa bytes for rounding
+0x0603f36c func fpdec_SetStickyBit hand ORs sticky bit into mantissa when lower bits non-zero
 0x0603f418 func fp_DoubleAdd hand soft-float double add/subtract (adddf3) with swap by magnitude, alignment, rounding
 0x0603f770 func fp_DoubleCompareLt hand soft-float double less-than compare, NaN and zero aware
 0x0603f818 func bigint_AddWords16 hand adds 16-bit word arrays with carry
@@ -547,7 +547,7 @@
 0x0603fa08 func bigint_ShiftRight1 hand shifts byte array right one bit, returns carry out
 0x0603fa44 func math_SqrtInt hand integer square root by Newton iteration with fixed divide
 0x0603fa96 func math_Hypot2D hand fixed-point sqrt(x*x+y*y) with scaling by larger magnitude
-0x0603fb88 func spline_BuildSlopes hand provisional: cubic spline setup, computes deltas, divided slopes and tridiagonal solve
+0x0603fb88 func spline_BuildSlopes hand cubic spline setup, computes deltas, divided slopes and tridiagonal solve
 0x0603fd62 func spline_Eval hand binary search knot interval then cubic polynomial evaluation at parameter
 0x0603fe44 func spline_EvalWithSlope hand binary search knot interval, evaluates cubic and returns derivative via out pointer
 0x0603ff78 func spline_ChordParams2D hand cumulative chord-length parameter along 2D points, normalized by total
@@ -558,10 +558,10 @@
 0x0604021c func spline_Eval3DTangent hand evaluates three channels plus normalized 3D tangent
 0x060402e8 func spline_ValidateCounts hand returns second arg if first > 2 and second > 1, else 0
 0x060402fe func cfg_LoadParamBlock hand copies 9 words from struct to globals if size field is large enough, returns 1
-0x06040368 func math_SplineBuild2 hand provisional: builds spline from 2-column point table, calls 060402e8/060402fe/0603ff78/06040108 helpers
-0x06040470 func math_SplineBuild2_Ex hand provisional: same 2-column spline build with extra output table
-0x0604058c func math_SplineBuild3 hand provisional: 3-column point table spline build, calls 06040028/060401b8
-0x060406c8 func math_SplineBuild3_Ex hand provisional: 3-column spline build with extra output table
+0x06040368 func math_SplineBuild2 hand builds spline from 2-column point table, calls 060402e8/060402fe/0603ff78/06040108 helpers
+0x06040470 func math_SplineBuild2_Ex hand same 2-column spline build with extra output table
+0x0604058c func math_SplineBuild3 hand 3-column point table spline build, calls 06040028/060401b8
+0x060406c8 func math_SplineBuild3_Ex hand 3-column spline build with extra output table
 0x06040820 func math_FixedMul hand 64-bit multiply returning middle 32 bits, 16.16 fixed-point multiply
 0x06040834 func math_DivuStart64 hand writes SH-2 DIVU DVSR, DVDNTH, DVDNTL to start 64/32 divide
 0x06040848 func math_IntToFixed hand shifts integer left 16 to 16.16 fixed
@@ -572,29 +572,29 @@
 0x0604091c func math_SinTableLerpRev hand sin table interpolation using constant minus x
 0x06040922 func math_SinTableLerp hand sin table linear interpolation of x
 0x06040ab4 func math_Atan2Fixed hand binary search over 0x5a-entry atan table plus quadrant fix-up
-0x06040e6c func vdp2_ApplyCharCtl hand provisional: mask and or of VDP2 character control shadow register bits
-0x06040ee8 func vdp2_SetColorModeBits hand provisional: updates VDP2 color mode bits in shadow register
+0x06040e6c func vdp2_ApplyCharCtl hand mask and or of VDP2 character control shadow register bits
+0x06040ee8 func vdp2_SetColorModeBits hand updates VDP2 color mode bits in shadow register
 0x0604109c func vdp2_InitScrollParam hand zeroes a 15-byte scroll parameter struct
-0x060410c0 func vdp2_SetVramCyclePattern hand provisional: writes VDP2 VRAM cycle pattern registers from table
+0x060410c0 func vdp2_SetVramCyclePattern hand writes VDP2 VRAM cycle pattern registers from table
 0x060415f4 func vdp2_InitScreenCfg hand zeroes screen config struct plus 16 dwords
-0x0604163c func vdp2_SetScrollScreenRegs hand provisional: switch on screen mask 1/2/4/8/0x10/0x20 setting scroll screen registers
+0x0604163c func vdp2_SetScrollScreenRegs hand switch on screen mask 1/2/4/8/0x10/0x20 setting scroll screen registers
 0x0604215c func vdp2_LoadShortTable8 hand copies 8 shorts to base plus 0x10
 0x06042184 func vdp2_InitState hand resets all VDP2 shadow registers to defaults
-0x06042390 func vdp2_PauseUpdateSetTarget hand provisional: pauses shadow flush and sets update target
+0x06042390 func vdp2_PauseUpdateSetTarget hand pauses shadow flush and sets update target
 0x060423a4 func vdp2_ResumeUpdate hand resumes VDP2 shadow register update
 0x060423c0 func vdp2_SetScrollPos hand sets scroll screen position in shadow registers
 0x060424c6 func vdp2_AddScrollPos hand adds delta to scroll screen position shadow registers
-0x06042618 func vdp2_SetScrollZoom hand provisional: sets scroll screen zoom factors in shadow registers
+0x06042618 func vdp2_SetScrollZoom hand sets scroll screen zoom factors in shadow registers
 0x06042744 func vdp2_FlushShadowRegs hand copies dirty shadow registers to VDP2 hardware registers
 0x0604282a func vdp2_VblankUpdate hand per-vblank VDP2 update calling shadow flush
 0x060428cc func mem_CopyWords16 hand copies n/2 shorts from source to destination
-0x060428e8 func vdp2_SetRamCtlMode hand provisional: sets VDP2 RAM control register mode bits
+0x060428e8 func vdp2_SetRamCtlMode hand sets VDP2 RAM control register mode bits
 0x0604294c func vdp2_FlushDirtyRegGroups hand writes dirty VDP2 register groups to hardware
 0x06042a58 func vdp2_WriteColorRamEntries hand writes color RAM entries 16-bit, or 32-bit in mode 2
 0x06042af8 func vdp2_ReleaseColorSlot hand frees allocated color RAM slot
 0x06042b1c func vdp2_AllocColorSlot hand allocates free color RAM slot
-0x06042c18 func vdp2_SetPriorityNumber hand provisional: sets VDP2 layer priority number register bits
-0x06042e98 func vdp2_SetLayerBits hand provisional: sets VDP2 layer enable or flag register bits
+0x06042c18 func vdp2_SetPriorityNumber hand sets VDP2 layer priority number register bits
+0x06042e98 func vdp2_SetLayerBits hand sets VDP2 layer enable or flag register bits
 0x06042ee4 func vdp2_StartColorFade hand sets up rgb deltas from param_4 color to param_5 color for fade
 0x06043068 func vdp2_ResetFadeSlots hand calls 06043d34 then zeroes 8 fade slots
 0x060430ba func vdp2_GetColorMode hand returns color mode register masked and shifted by 12
@@ -602,28 +602,28 @@
 0x0604368c func vdp2_UpdateColorFade hand color fade state machine, states 1/2/3 per frame
 0x06043c50 func vdp2_SetColorOffsetRGB hand sets VDP2 color offset RGB registers
 0x06043d34 func vdp2_InitRegisters hand clears many VDP2 register bits to initial state
-0x060442a4 func vdp2_ClearRegsA hand provisional: clears VDP2 register group A bits
-0x06044380 func vdp2_SetRegsB hand provisional: sets VDP2 register group B bits
-0x06044410 func vdp2_ClearRegsC hand provisional: clears VDP2 register group C bits
-0x060444ec func vdp2_ClearRegsD hand provisional: clears VDP2 register group D bits
-0x060445a8 func vdp2_ClearRegsE hand provisional: clears VDP2 register group E bits
+0x060442a4 func vdp2_ClearRegsA hand clears VDP2 register group A bits
+0x06044380 func vdp2_SetRegsB hand sets VDP2 register group B bits
+0x06044410 func vdp2_ClearRegsC hand clears VDP2 register group C bits
+0x060444ec func vdp2_ClearRegsD hand clears VDP2 register group D bits
+0x060445a8 func vdp2_ClearRegsE hand clears VDP2 register group E bits
 0x060449c4 func math_CosLookupQuadrant hand cos-like value from angle via quadrant fold and table call, sign flip
 0x06044a60 func math_SinLookupQuadrant hand sin-like counterpart of quadrant fold table lookup
-0x06044b00 func vdp2_InitRotationParams hand provisional: inits two rotation parameter blocks, builds matrix with sin/cos, returns 0 or 2
-0x06044dd4 func vdp2_UpdateRotationParams hand provisional: per-RBG slot rotates matrix elements with fixed multiply, builds per-line table
-0x06045a9c func rbg_RotateMatrixByAngle hand provisional: rotates 2x2 and translation of per-RBG matrix by sin/cos, copies to param block
-0x06045c10 func rbg_AdvanceAngleBuildMatrix hand provisional: adds angle delta wrapped, builds rotation matrix about center with sin/cos
+0x06044b00 func vdp2_InitRotationParams hand inits two rotation parameter blocks, builds matrix with sin/cos, returns 0 or 2
+0x06044dd4 func vdp2_UpdateRotationParams hand per-RBG slot rotates matrix elements with fixed multiply, builds per-line table
+0x06045a9c func rbg_RotateMatrixByAngle hand rotates 2x2 and translation of per-RBG matrix by sin/cos, copies to param block
+0x06045c10 func rbg_AdvanceAngleBuildMatrix hand adds angle delta wrapped, builds rotation matrix about center with sin/cos
 0x06045d94 func rbg_SetParamA34 hand sets three shorts at per-RBG block offsets 0x34-0x38
 0x06045dd8 func rbg_SetParamA3C hand sets three shorts at per-RBG block offsets 0x3c-0x40
-0x06045e1c func rbg_ResetParams hand provisional: resets per-RBG state, VDP2 reg mask, loads identity matrix, calls init
-0x06045f3c func vdp2_SetDisplayMode hand provisional: sets display mode state and register bits from mode flags with two special values
+0x06045e1c func rbg_ResetParams hand resets per-RBG state, VDP2 reg mask, loads identity matrix, calls init
+0x06045f3c func vdp2_SetDisplayMode hand sets display mode state and register bits from mode flags with two special values
 0x06046004 func vdp2_WaitUpdateDone hand sets request flag then spins until two flags clear
 0x06046024 func vdp2_ClearUpdateFlags hand zeroes eight update state flags and sets one
-0x0604606c func vdp2_UpdateDisplayStateMachine hand provisional: state by mode 0/2/3 writes register bits and calls handler
-0x06046150 func vdp2_FinishDisplayChange hand provisional: applies pending display register bits and clears pending flags
+0x0604606c func vdp2_UpdateDisplayStateMachine hand state by mode 0/2/3 writes register bits and calls handler
+0x06046150 func vdp2_FinishDisplayChange hand applies pending display register bits and clears pending flags
 0x06046210 func vdp2_SetWindowParams hand provisional: writes window shorts and masked register fields by flag bits
-0x0604642c func sprite_InitStreamBuffers hand provisional: sets up buffer pointers by format code 0/0x10/0x20/0x30, swaps buffers
-0x06046758 func sprite_StepStreamFrame hand provisional: per-frame advance of stream buffers with pad bit check and swap
+0x0604642c func sprite_InitStreamBuffers hand sets up buffer pointers by format code 0/0x10/0x20/0x30, swaps buffers
+0x06046758 func sprite_StepStreamFrame hand per-frame advance of stream buffers with pad bit check and swap
 0x06046f84 func sys_CheckPortBit20 hand sets flag 2 if register byte has bit 0x20 and pointer in range
 0x06046fb8 func sprite_CopyBytesToBuffer hand copies bytes to output buffer, adjusts pointers when type is space
 0x0604704c func sprite_UpdateScrollBuffers hand provisional: big per-format table update of scroll deltas and buffer entries
@@ -635,13 +635,13 @@
 0x06047b56 func sprite_SetBufferEntryByte hand stores byte into buffer entry at format-dependent offset
 0x06047c26 func mem_CopyEntryTable6 hand copies table of 6-byte entries, first short and last byte, patches second
 0x06047cac func sys_DisableIrqResetState hand sets SR interrupt mask 15, calls function, clears flag
-0x06047cfc func sys_RangeCheckSubmit hand provisional: masks interrupts, range checks two params, builds request struct and submits
-0x06047e2c func cd_PollPlayStatus hand provisional: if enabled calls status check, returns 2 when status is 1
-0x06047f00 func gfs_Init hand provisional: validates max files 1-24 and work alignment, sets up and opens GFS manager
-0x06047fec func gfs_Open hand provisional: allocates file handle by id, gets size and opens, else fails
-0x0604808a func gfs_SetupOpenState hand provisional: sets or clears open file state in manager
-0x060480dc func gfs_ReadDirEntry hand provisional: reads directory entry via helper if open type 1
-0x0604812a func gfs_GetDirEntryAddr hand provisional: returns directory entry address plus 0xc by index
+0x06047cfc func sys_RangeCheckSubmit hand masks interrupts, range checks two params, builds request struct and submits
+0x06047e2c func scu_DmaPollStatus hand if enabled calls status check, returns 2 when status is 1 (was cd_PollPlayStatus)
+0x06047f00 func gfs_Init hand validates max files 1-24 and work alignment, sets up and opens GFS manager
+0x06047fec func gfs_Open hand allocates file handle by id, gets size and opens, else fails
+0x0604808a func gfs_SetupOpenState hand sets or clears open file state in manager
+0x060480dc func gfs_ReadDirEntry hand reads directory entry via helper if open type 1
+0x0604812a func gfs_GetDirEntryAddr hand returns directory entry address plus 0xc by index
 0x0604818c func gfs_AllocHandle hand provisional: finds free handle struct, binds to file id, sets error codes
 0x0604821c func gfs_CloseHandle hand frees handle, calls close callback, sets error 0
 0x06048238 func gfs_Seek hand provisional: seeks handle with mode 0/1/2 absolute, relative, end
