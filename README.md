@@ -6,7 +6,7 @@ naming pass over every function of the main program:
 
 | Program | Functions | Hand-named | Still `provisional` |
 |---|---|---|---|
-| AABIOS.BIN (main program at 0x06018000) | 1,119 | 1,119 | 47 (all 4 review batches applied) |
+| AABIOS.BIN (main program at 0x06018000) | 1,119 | 1,119 | 0 (5 review passes, done) |
 
 0 placeholder (`FUN_`) names left.
 
